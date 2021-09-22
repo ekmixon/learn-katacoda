@@ -29,6 +29,6 @@
         "rhea": "^1.0.24"
     },
     "devDependencies": {
-        "nodeshift": "^7.2.0"
+        "nodeshift": "^8.4.0"
     }
 }
