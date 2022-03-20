@@ -1,4 +1,4 @@
-FROM golang:1.12
+FROM golang:1.17.8
 CMD ["./main"]
 EXPOSE 3000
 RUN mkdir -p /go/src/github.com/openshift-evangelists/intro-katacoda
