@@ -24,20 +24,33 @@ katacodaid = os.environ['KATACODA_HOST_SUBDOMAIN']
 katacodahost = os.environ['KATACODA_HOST']
 externalip = os.environ['EXTERNALIP'].replace(".","\.")
 
-masterpublicurl = "https://"+katacodaid+"-8443-"+katacodahost+".environments.katacoda.com"
-publicurl = masterpublicurl + "/console/"
+masterpublicurl = (
+    f"https://{katacodaid}-8443-{katacodahost}.environments.katacoda.com"
+)
+
+publicurl = f"{masterpublicurl}/console/"
 internalip = get_ip_address('eth0').replace(".","\.")
 
 config['assetConfig']['masterPublicURL'] = masterpublicurl
 config['assetConfig']['publicURL'] = publicurl
-config['corsAllowedOrigins'].append("//"+katacodaid+"-8443-"+katacodahost+"\.environments\.katacoda\.com:443$")
-config['corsAllowedOrigins'].append("//"+katacodaid+"-8443-"+katacodahost+"\.environments\.katacoda\.com$")
-config['corsAllowedOrigins'].append("//"+internalip+"(:|$)")
-config['corsAllowedOrigins'].append("//"+externalip+"(:|$)")
+config['corsAllowedOrigins'].append(
+    f"//{katacodaid}-8443-{katacodahost}"
+    + "\.environments\.katacoda\.com:443$"
+)
+
+config['corsAllowedOrigins'].append(
+    f"//{katacodaid}-8443-{katacodahost}" + "\.environments\.katacoda\.com$"
+)
+
+config['corsAllowedOrigins'].append(f"//{internalip}(:|$)")
+config['corsAllowedOrigins'].append(f"//{externalip}(:|$)")
 config['masterPublicURL'] = masterpublicurl
 config['oauthConfig']['masterPublicURL'] = masterpublicurl
 config['oauthConfig']['assetPublicURL'] = publicurl
-config['routingConfig']['subdomain'] = katacodaid+"-80-"+katacodahost+".environments.katacoda.com"
+config['routingConfig'][
+    'subdomain'
+] = f"{katacodaid}-80-{katacodahost}.environments.katacoda.com"
+
 
 ruamel.yaml.round_trip_dump(config, open('/katacoda/config/master/master-config.yaml', 'w'), 
                             indent=ind, block_seq_indent=bsi)
